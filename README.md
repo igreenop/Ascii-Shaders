@@ -1,4 +1,5 @@
-This is my second attempt at making an img-to-ASCII converter.\nUsing the method layed out by Acerola:
+This is my second attempt at making an img-to-ASCII converter.
+Using the method layed out by Acerola:
 img -> sobel -> invert -> get_edge_direction -> smooth_edges -> ascii (i think)
 
 All of the filters will work by:
