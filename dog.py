@@ -21,17 +21,27 @@ if os.path.exists(output_filename):
 
 image = cv2.imread(input_filename, cv2.IMREAD_GRAYSCALE)
 
-blur1 = cv2.GaussianBlur(image, (0, 0), 1)
-blur2 = cv2.GaussianBlur(image, (0, 0), 2)
+tao = 0.2
+
+sigma_1 = 1.4
+sigma_2 = tao * sigma_1
+
+
+blur1 = cv2.GaussianBlur(image, (0, 0), sigma_1)
+blur2 = cv2.GaussianBlur(image, (0, 0), sigma_2)
 
 dog = blur1 - blur2
 
 dog_normalized = cv2.normalize(dog, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
 
+threshold_value = 50
+max_value = 255
+_, thresholded_image = cv2.threshold(dog_normalized, threshold_value, max_value, cv2.THRESH_BINARY)
+
 if len(sys.argv) == 3 and sys.argv[1] == "-d":
-    plt.imshow(dog_normalized, cmap="grey")
+    plt.imshow(thresholded_image, cmap="grey")
     plt.title('Difference of Gaussians')
     plt.axis('off')  
     plt.show()
 
-cv2.imwrite(output_filename, dog_normalized)
+cv2.imwrite(output_filename, thresholded_image)

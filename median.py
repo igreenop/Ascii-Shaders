@@ -18,7 +18,7 @@ if os.path.exists(output_filename):
     print(output_filename, "already exists!")
     sys.exit(1)
 
-image = cv2.imread(input_filename, cv2.IMREAD_GRAYSCALE)
+image = cv2.imread(input_filename, cv2.IMREAD_ANYCOLOR)
 
 denoised_image = cv2.medianBlur(image, 5)
 
